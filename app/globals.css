@@ -1,0 +1,88 @@
+@tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    /* Base Styles */
+    @layer base {
+      :root {
+        --grid-width: 80; /* Default values, updated dynamically */
+        --grid-height: 80;
+      }
+
+      body {
+        @apply bg-background text-foreground font-sans; /* Use Dracula background and foreground */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        @apply text-current font-bold; /* Use Dracula Current for headings */
+      }
+
+      .aida-grid-container {
+        display: grid; /* CRUCIAL: Enable grid layout */
+        grid-template-columns: repeat(var(--grid-width), 1fr);  /* Use CSS variable */
+        grid-template-rows: repeat(var(--grid-height), 1fr);
+        border: 1px solid hsl(var(--border)); /* Thicker border for the container */
+        width: fit-content; /* Fit to content */
+        height: fit-content;
+      }
+
+      .aida-stitch {
+        width: 10px;  /* Base stitch size */
+        height: 10px;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+      }
+
+      /* Thin lines for each stitch */
+      .aida-stitch {
+        border: 0.5px solid hsl(var(--muted-foreground) / 0.5); /* Use CSS variables and transparency */
+      }
+
+      /* Thicker lines every 10 stitches (Aida blocks) */
+      .aida-block-start-x {
+        border-left: 2px solid hsl(var(--foreground) / 0.8);
+      }
+
+      .aida-block-start-y {
+        border-top: 2px solid hsl(var(--foreground) / 0.8);
+      }
+    }
+
+    /* Component Styles */
+    @layer components {
+      .btn-primary {
+        @apply bg-purple text-background font-semibold rounded-md px-4 py-2 transition-colors duration-200;
+        &:hover {
+          @apply bg-purple/90; /* Slightly lighter on hover */
+        }
+        &:disabled {
+          @apply opacity-50 cursor-not-allowed;
+        }
+      }
+
+      .input-group {
+        @apply flex flex-col space-y-1;
+      }
+
+      .input-label {
+        @apply text-current font-medium;
+      }
+
+      .input-field {
+        @apply bg-secondary text-foreground rounded-md px-4 py-2 border border-border;
+        &:focus {
+          @apply ring-2 ring-purple; /* Focus ring */
+        }
+      }
+
+      .select-trigger {
+          @apply bg-secondary text-foreground rounded-md px-4 py-2 border border-border w-full justify-between;
+      }
+      .select-content{
+          @apply bg-card;
+      }
+        .select-item {
+        @apply px-4 py-2 rounded-md cursor-pointer data-[highlighted]:bg-muted data-[highlighted]:text-foreground;
+      }
+    }
